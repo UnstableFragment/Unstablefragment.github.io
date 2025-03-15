@@ -1311,7 +1311,10 @@ div.user[data-vip="diamond"]::after {
 	font-size: 13px;
 	font-weight: 600;
 	line-height: 24px;
-	letter-spacing: 0px;
+	white-space: pre;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	overflow-wrap: break-word;
 }
 
 #history>div {
@@ -1325,7 +1328,7 @@ div.user[data-vip="diamond"]::after {
 #history>div>div {
 	position: absolute;
 	display: block;
-	width: 139px;
+	width: 174px;
 	height: 25px;
 	top: 5px;
 	left: 5px;
@@ -1339,7 +1342,7 @@ div.user[data-vip="diamond"]::after {
 
 #history>div>button {
 	position: absolute;
-	display: block;
+	display: none;
 	width: 35px;
 	height: 35px;
 	top: 0px;
@@ -1358,6 +1361,14 @@ div.user[data-vip="diamond"]::after {
 
 #history>div>button:active {
 	background-color: #ff0000;
+}
+
+#history>div:hover>div {
+	width: 139px;
+}
+
+#history>div:hover>button {
+	display: block;	
 }
 
 #newchat {
@@ -2048,7 +2059,7 @@ div.user[data-vip="diamond"]::after {
 	letter-spacing: 0px;
 }
 
-#ac-friends>div>span {
+#ac-friends>div>span, #grusers>div>span {
 	position: absolute;	
 	display: block;
 	width: 300px;
@@ -2473,6 +2484,10 @@ div.user[data-vip="diamond"]::after {
 
 #like {
 	background-image: url("res/thumb-up.svg");
+}
+
+#like[data-given] {
+	background-image: url("res/thumb-up-given.svg");
 }
 
 #share {

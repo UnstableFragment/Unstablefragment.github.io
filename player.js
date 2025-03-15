@@ -121,6 +121,7 @@
 			url: url,
 			theme: "light",
 			backend: "dosboxX",
+			kiosk: true,
 			noCloud: true,
 			noCursor: true,
 			autoStart: true,

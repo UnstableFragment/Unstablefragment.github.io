@@ -10,6 +10,20 @@ NettleWeb is, and will always be, free and open-source. You can however show us 
 
 [Main Link](https://nettleweb.com/) | [Mirror 1](https://nettleweb.pages.dev/) | [Mirror 2](https://nettleweb.github.io) | [Discord](https://discord.gg/djdH3kVd4v)
 
+## Features
+- Chat - Server/DM/Groups/AI Chat
+- Games - HTML5/Flash/DOS
+- Videos
+- Emulators/Apps
+
+### Planned Features (TODO list)
+- [ ] Video calls in DM/Group chat
+- [ ] Reward system for uploading games
+- [ ] Sorting/notification dots in group channel lists
+- [ ] Persistent storage for Play.js and JS-DOS
+- [ ] Better home page (improve UI design)
+- [ ] Standalone Android chat client
+
 ## Mirror Links
 We are no longer maintaining any mirror links, because listed links could be blocked very easily. Please consider using data URL for bypassing browser extensions, or self-host a mirror link for bypassing external network restrictions. (See below for instructions)
 

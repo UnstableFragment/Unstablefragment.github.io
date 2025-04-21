@@ -1166,11 +1166,11 @@ div.user[data-vip="diamond"]::after {
 	vertical-align: top;
 }
 
-#yt-option-bar>button:hover, #yt-filter-bar>div>button:hover, #yt-load-more:hover, #p-load-more:hover, #loadmore:hover {
+#yt-option-bar>button:hover, #yt-filter-bar>div>div>button:hover, #yt-load-more:hover, #p-load-more:hover, #loadmore:hover {
 	background: #f0f0f0;
 }
 
-#yt-option-bar>button:active, #yt-filter-bar>div>button:active, #yt-load-more:active, #p-load-more:active, #loadmore:active {
+#yt-option-bar>button:active, #yt-filter-bar>div>div>button:active, #yt-load-more:active, #p-load-more:active, #loadmore:active {
 	background: #e0e0e0;
 }
 
@@ -1223,6 +1223,7 @@ div.user[data-vip="diamond"]::after {
 
 #yt-filter-bar>div>div>button[data-selected] {
 	font-weight: 600;
+	border-width: 2px;
 	border-color: #808080;
 }
 

@@ -27,14 +27,12 @@
 		return;
 	}
 
-	/**
-	 * @param {string} url 
-	 */
+	/** @param {string} url */
 	function loadJS(url) {
 		return new Promise((resolve, reject) => {
 			const elem = doc.createElement("script");
-			elem.type = "text/javascript";
 			elem.src = url;
+			elem.type = "text/javascript";
 			elem.async = true;
 			elem.defer = true;
 
@@ -53,11 +51,22 @@
 		});
 	}
 
-	/**
-	 * @param {Uint8Array} data 
-	 */
-	async function loadPs2(data) {
+	/** @param {string} url */
+	async function fetchBuf(url) {
+		const res = await fetch(url);
+		if (!res.ok)
+			throw new Error("Remote returned error status code: " + res.status);
+
+		return new Uint8Array(await res.arrayBuffer());
+	}
+
+	/** @param {string} url */
+	async function loadPs2(url) {
 		body.innerHTML = "<canvas id=\"outputCanvas\" width=\"1280\" height=\"720\" tabIndex=\"1\"></canvas>";
+
+		const data = await fetchBuf(url);
+		if (url.startsWith("blob:"))
+			URL.revokeObjectURL(url);
 
 		const module = await (await import("/lib/playjs/Play.js")).default();
 		await module.ccall("initVm", "", [], []);
@@ -72,10 +81,8 @@
 		module.bootDiscImage("file.iso");
 	}
 
-	/**
-	 * @param {ArrayBuffer} data 
-	 */
-	async function loadSwf(data) {
+	/** @param {string} url */
+	async function loadSwf(url) {
 		await loadJS("/lib/ruffle/ruffle.js");
 		const player = win.RufflePlayer;
 		if (player == null)
@@ -86,22 +93,27 @@
 		body.appendChild(frame);
 
 		await frame.load({
-			data: data,
+			url: url,
 			wmode: "opaque",
 			scale: "showAll",
 			quality: "best",
 			autoplay: "auto",
 			logLevel: "warn",
 			letterbox: "on",
+			polyfills: false,
 			openUrlMode: "confirm",
-			upgradeToHttps: true
+			splashScreen: false,
+			upgradeToHttps: true,
+			showSwfDownload: true,
+			allowScriptAccess: false
 		});
+
+		if (url.startsWith("blob:"))
+			URL.revokeObjectURL(url);
 	}
 
-	/**
-	 * @param {Uint8Array} data 
-	 */
-	async function loadDos(data) {
+	/** @param {string} url  */
+	async function loadDos(url) {
 		await loadJS("/lib/jsdos/js-dos.js");
 		const Dos = win.Dos;
 		if (Dos == null)
@@ -111,11 +123,9 @@
 		body.innerHTML = "";
 		body.appendChild(frame);
 
-		const url = URL.createObjectURL(new Blob([data], { type: "application/octet-stream", endings: "native" }));
-
 		Dos(frame, {
 			onEvent: (e) => {
-				if (e === "emu-ready")
+				if (e === "emu-ready" && url.startsWith("blob:"))
 					URL.revokeObjectURL(url);
 			},
 			url: url,
@@ -176,20 +186,20 @@
 	 */
 	function messageCallback(e) {
 		if (e.origin === win.origin) {
-			const { id, buf, off, len } = e.data || {};
+			const { id, url } = e.data || {};
 			switch (id) {
 				case "ps2":
-					loadPs2(new Uint8Array(buf, off, len));
+					loadPs2(url);
 					break;
 				case "swf":
 				case "flash":
-					loadSwf(buf);
+					loadSwf(url);
 					break;
 				case "dos":
-					loadDos(new Uint8Array(buf, off, len));
+					loadDos(url);
 					break;
 				case "emu":
-					loadEmu(buf[0], buf[1], buf[2]);
+					loadEmu(url[0], url[1], url[2]);
 					break;
 				default:
 					console.error("Unknown player type: ", id);

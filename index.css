@@ -257,6 +257,8 @@
 	width: 800px;
 	height: fit-content;
 	margin: 10px auto 20px;
+	padding: 10px 20px;
+	background: #ffffff;
 }
 
 #content>div[data-current] {
@@ -2266,6 +2268,7 @@ div.user[data-vip="diamond"]::after {
 	flex-wrap: wrap;
 	color: #808080;
 	cursor: default;
+	background: #ffffff;
 	border-top: 1px solid #808080;
 	align-items: center;
 	justify-content: space-around;
@@ -2868,7 +2871,8 @@ div.user[data-vip="diamond"]::after {
 
 @media all and (max-width: 850px) {
 	#content>div, #bottom-widget, #footer {
-		width: 100%;
+		width: calc(100% - 20px);
+		padding: 5px 10px;
 	}
 
 	#community-page>div, #game, #video {

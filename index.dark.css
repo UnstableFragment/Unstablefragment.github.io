@@ -148,7 +148,10 @@ optgroup,
 }
 
 #chat,
-#ac-prof {
+#footer,
+#ac-prof,
+#content>div,
+#install:hover {
 	background: #202020;
 }
 
@@ -261,10 +264,6 @@ optgroup,
 #install {
 	filter: brightness(200%);
 	background: #101010;
-}
-
-#install:hover {
-	background: #202020;
 }
 
 #install:active {
